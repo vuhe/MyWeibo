@@ -3,9 +3,11 @@ import App from './App'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import router from './router'
+import httpRequest from '@/utils/httpRequest'
 
 Vue.use(Vuetify)
 Vue.config.productionTip = false
+Vue.prototype.$http = httpRequest // Ajax 请求方法
 
 /* eslint-disable no-new */
 new Vue({
