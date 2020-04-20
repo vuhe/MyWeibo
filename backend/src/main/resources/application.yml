@@ -15,7 +15,6 @@ spring:
     serialization:
       # jackson返回时间戳
       write-dates-as-timestamps: true
-    time-zone: GMT+8
   servlet:
     multipart:
       #文件上传大小配置

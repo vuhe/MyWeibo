@@ -3,6 +3,7 @@ package site.zhuhe.weibo.portal.weibo.service.intf;
 import com.baomidou.mybatisplus.extension.service.IService;
 import site.zhuhe.weibo.entity.weibo.Weibo;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,4 +20,11 @@ public interface WeiboService extends IService<Weibo> {
      * @return 微博列表
      */
     List<Weibo> getAllWeibo();
+
+    /**
+     * 新增微博
+     *
+     * @param weibo 微博内容
+     */
+    void addWeibo(Weibo weibo);
 }

@@ -1,6 +1,8 @@
 package site.zhuhe.weibo.portal.weibo.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import site.zhuhe.weibo.common.Result;
 import site.zhuhe.weibo.entity.weibo.Weibo;
@@ -25,5 +27,11 @@ public class WeiboController {
     public Result getAllWeibo() {
         List<Weibo> weiboList = weiboService.getAllWeibo();
         return Result.ok().put("list", weiboList);
+    }
+
+    @PostMapping("/add")
+    public Result addWeibo(@RequestBody Weibo weibo) {
+        weiboService.addWeibo(weibo);
+        return Result.ok();
     }
 }
