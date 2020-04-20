@@ -21,7 +21,7 @@ public class WeiboController {
     @Resource
     private WeiboService weiboService;
 
-    @GetMapping("/all")
+    @GetMapping("/get/all")
     public Result getAllWeibo() {
         List<Weibo> weiboList = weiboService.getAllWeibo();
         return Result.ok().put("list", weiboList);

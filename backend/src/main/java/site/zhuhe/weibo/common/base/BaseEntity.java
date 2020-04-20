@@ -7,10 +7,11 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 
 /**
+ * 基础实体类
+ *
  * @className: BaseEntity
  * @author: zhuhe
  * @date: 2020/4/20 18:13
- * @description: 基础实体类
  */
 @Data
 public class BaseEntity {

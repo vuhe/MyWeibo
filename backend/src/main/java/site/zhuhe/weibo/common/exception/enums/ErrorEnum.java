@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
+ * Error 类型枚举类
  * @className: ErrorEnum
  * @author: zhuhe
  * @date: 2020/4/20 18:07
- * @description: error类型枚举类
  */
 @Getter
 @AllArgsConstructor

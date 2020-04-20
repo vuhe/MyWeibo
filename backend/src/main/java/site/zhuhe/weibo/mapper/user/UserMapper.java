@@ -1,6 +1,7 @@
 package site.zhuhe.weibo.mapper.user;
 
 import org.apache.ibatis.annotations.Mapper;
+import site.zhuhe.weibo.entity.user.User;
 
 /**
  * 用户 Mapper 接口
@@ -11,4 +12,11 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserMapper {
+    /**
+     * 查找用户名
+     *
+     * @param username 用户名
+     * @return 用户类
+     */
+    User loadUserByUsername (String username);
 }

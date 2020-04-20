@@ -15,7 +15,6 @@ spring:
     serialization:
       # jackson返回时间戳
       write-dates-as-timestamps: true
-    date-format: yyyy年MM月dd日 HH:mm
     time-zone: GMT+8
   servlet:
     multipart:
