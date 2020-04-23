@@ -13,7 +13,7 @@ import site.zhuhe.weibo.entity.weibo.Weibo;
  */
 public interface WeiboService extends IService<Weibo> {
     /**
-     * 获取全部微博信息
+     * 按页获取微博
      *
      * @param page 页码
      * @return 微博列表
@@ -26,4 +26,18 @@ public interface WeiboService extends IService<Weibo> {
      * @param weibo 微博内容
      */
     void addWeibo(Weibo weibo);
+
+    /**
+     * 更新微博
+     *
+     * @param weibo 更新内容
+     */
+    void updateWeibo(Weibo weibo);
+
+    /**
+     * 批量删除微博
+     *
+     * @param ids id 数组
+     */
+    void deleteWeibo(Integer[] ids);
 }

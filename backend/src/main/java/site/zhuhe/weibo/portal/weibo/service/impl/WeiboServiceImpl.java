@@ -8,8 +8,8 @@ import site.zhuhe.weibo.entity.weibo.Weibo;
 import site.zhuhe.weibo.mapper.weibo.WeiboMapper;
 import site.zhuhe.weibo.portal.weibo.service.intf.WeiboService;
 
+import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 微博 服务接口实现
@@ -21,7 +21,7 @@ import java.util.List;
 @Service("WeiboService")
 public class WeiboServiceImpl extends ServiceImpl<WeiboMapper, Weibo> implements WeiboService {
     /**
-     * 获取全部微博信息
+     * 按页获取微博
      *
      * @param pageNum 页码
      * @return 微博列表
@@ -29,8 +29,7 @@ public class WeiboServiceImpl extends ServiceImpl<WeiboMapper, Weibo> implements
     @Override
     public IPage<Weibo> getWeiboByPage(Integer pageNum) {
         Page<Weibo> page = new Page<>(pageNum, 10);
-        IPage<Weibo> selectPage = baseMapper.selectPage(page, null);
-        return selectPage;
+        return baseMapper.selectPage(page, null);
     }
 
     /**
@@ -42,5 +41,26 @@ public class WeiboServiceImpl extends ServiceImpl<WeiboMapper, Weibo> implements
     public void addWeibo(Weibo weibo) {
         weibo.setTime(new Date());
         baseMapper.insert(weibo);
+    }
+
+    /**
+     * 更新微博
+     *
+     * @param weibo 更新内容
+     */
+    @Override
+    public void updateWeibo(Weibo weibo) {
+        weibo.setTime(new Date());
+        baseMapper.updateById(weibo);
+    }
+
+    /**
+     * 批量删除微博
+     *
+     * @param ids id 数组
+     */
+    @Override
+    public void deleteWeibo(Integer[] ids) {
+        baseMapper.deleteBatchIds(Arrays.asList(ids));
     }
 }
