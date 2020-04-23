@@ -10,11 +10,7 @@
 
 <script>
 export default {
-  name: 'Header',
-  methods: {
-    showNav () {
-    }
-  }
+  name: 'Header'
 }
 </script>
 
