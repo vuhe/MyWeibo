@@ -13,11 +13,15 @@ import java.util.HashMap;
 public class Result extends HashMap<String, Object> {
     public Result() {
         put("code", 200);
-        put("msg", "success");
+        put("msg", "成功");
     }
 
     public static Result ok() {
         return new Result();
+    }
+
+    public static Result ok(Integer code, String msg) {
+        return new Result().put("code", code).put("msg", msg);
     }
 
     public static Result error() {

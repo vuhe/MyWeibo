@@ -23,6 +23,7 @@ public enum ErrorEnum {
 
     //用户权限错误
     INVALID_TOKEN(1001, "token不合法"),
+    INVALID_LOGIN(1002, "登录信息不合法，请重新登录"),
 
     //登录模块错误
     LOGIN_FAIL(10001, "登录失败"),
