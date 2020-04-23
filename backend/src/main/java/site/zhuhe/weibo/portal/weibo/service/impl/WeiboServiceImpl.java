@@ -1,5 +1,7 @@
 package site.zhuhe.weibo.portal.weibo.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import site.zhuhe.weibo.entity.weibo.Weibo;
@@ -21,11 +23,14 @@ public class WeiboServiceImpl extends ServiceImpl<WeiboMapper, Weibo> implements
     /**
      * 获取全部微博信息
      *
+     * @param pageNum 页码
      * @return 微博列表
      */
     @Override
-    public List<Weibo> getAllWeibo() {
-        return baseMapper.getAllWeibo();
+    public IPage<Weibo> getWeiboByPage(Integer pageNum) {
+        Page<Weibo> page = new Page<>(pageNum, 10);
+        IPage<Weibo> selectPage = baseMapper.selectPage(page, null);
+        return selectPage;
     }
 
     /**
