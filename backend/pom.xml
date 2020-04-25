@@ -21,6 +21,7 @@
         <mybaits.version>1.3.2</mybaits.version>
         <mybatisplus.version>3.0.1</mybatisplus.version>
         <druid.version>1.1.10</druid.version>
+        <shiro.version>1.4.0</shiro.version>
         <swagger.version>2.9.2</swagger.version>
         <redis.pool.version>2.6.0</redis.pool.version>
         <springboot.version>2.1.2.RELEASE</springboot.version>
@@ -64,8 +65,9 @@
             <version>${springboot.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+            <version>${shiro.version}</version>
         </dependency>
 
 

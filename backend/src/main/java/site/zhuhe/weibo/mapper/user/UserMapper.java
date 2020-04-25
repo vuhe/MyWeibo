@@ -19,4 +19,11 @@ public interface UserMapper {
      * @return 用户类
      */
     User loadUserByUsername (String username);
+
+    /**
+     * 获取用户实例
+     *
+     * @return 用户
+     */
+    User getUser();
 }

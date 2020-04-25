@@ -15,4 +15,10 @@
         WHERE `name` = #{username}
     </select>
 
+    <select id="getUser" resultMap="Base">
+        SELECT `id`, `name`, `password`
+        FROM `user`
+        WHERE `id` = 1
+    </select>
+
 </mapper>

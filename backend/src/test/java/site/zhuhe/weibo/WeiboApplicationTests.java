@@ -1,8 +1,8 @@
 package site.zhuhe.weibo;
 
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootTest
 class WeiboApplicationTests {
@@ -13,8 +13,7 @@ class WeiboApplicationTests {
 
     @Test
     void getEncodePassword() {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
-        String encodePassword = encoder.encode("123");
+        String encodePassword = new Sha256Hash("123", "zhuhe").toHex();
         System.out.println(encodePassword);
     }
 

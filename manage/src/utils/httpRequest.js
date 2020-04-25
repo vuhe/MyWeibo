@@ -1,5 +1,7 @@
+import Vue from 'vue'
 import axios from 'axios'
 import qs from 'qs' // 字符串处理
+import router from '@/router'
 import merge from 'lodash/merge' // 合并对象工具
 
 const http = axios.create({
@@ -16,8 +18,33 @@ const http = axios.create({
  */
 http.adornUrl = (actionName) => {
   // 非生产环境 && 开启代理, 接口前缀统一使用[/proxyApi/]前缀做代理拦截!
-  return 'http://127.0.0.1:8080/weibo' + actionName
+  return 'http://localhost:8080/weibo' + actionName
 }
+
+/**
+ * 请求拦截
+ */
+http.interceptors.request.use(config => {
+  // 处理请求之前的配置
+  config.headers['token'] = Vue.cookie.get('token') // // 请求头带上token
+  return config
+}, error => {
+  // 请求失败的处理
+  return Promise.reject(error)
+})
+
+/**
+ * 响应拦截
+ */
+http.interceptors.response.use(response => {
+  if (response.data && response.data.code === 1002) {
+    Vue.cookie.delete('token')// 401 token失效
+    router.push({ name: 'Login' })
+  }
+  return response
+}, error => {
+  return Promise.reject(error)
+})
 
 /**
  * get 请求参数处理
@@ -38,7 +65,7 @@ http.adornParams = (params = {}, openDefaultParams = false) => {
  * @param contentType
  * @returns {string}
  */
-http.adornData = (data = {}, openDefaultdata = true, contentType = 'json') => {
+http.adornData = (data = {}, openDefaultdata = false, contentType = 'json') => {
   var defaults = {
     't': new Date().getTime()
   }
