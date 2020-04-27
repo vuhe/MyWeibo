@@ -1,11 +1,15 @@
 <template>
-  <el-container>
-    <el-main class="login-page">
-      <h4>微博管理登录</h4>
+  <div class="login-page">
+    <template v-if="!this.$store.state.isLogin">
+      <h1>微博管理登录</h1>
       <el-input placeholder="请输入密码" v-model="input" show-password></el-input>
-      <el-button type="primary" @click="submit">登陆</el-button>
-    </el-main>
-  </el-container>
+      <el-button type="primary" @click="submit" style="margin-top: 20px;">登陆</el-button>
+    </template>
+    <template v-else>
+      <h1>管理状态：已登录</h1>
+      <el-button type="primary" @click="logout">登出</el-button>
+    </template>
+  </div>
 </template>
 
 <script>
@@ -30,10 +34,27 @@ export default {
         if (data && data.code === 201) {
           this.$cookies.set('token', data.token)
           this.$router.replace('/')
+          this.$store.state.isLogin = true
         } else {
           this.$message.error(data.msg)
         }
       })
+    },
+    logout () {
+      this.$http({
+        url: this.$http.adornUrl('/logout'),
+        method: 'post'
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.$cookies.remove('token')
+          if (this.$route.path !== '/login') {
+            this.$router.replace('/login')
+          }
+        } else {
+          this.$message.error(data.msg)
+        }
+      })
+      this.$store.state.isLogin = false
     }
   }
 }
@@ -41,6 +62,15 @@ export default {
 
 <style scoped>
 .login-page {
+  width: 300px;
+  height: 160px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
   justify-content: center;
+  align-items: center;
 }
 </style>

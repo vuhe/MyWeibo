@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import qs from 'qs' // 字符串处理
-import router from '@/router'
+import store from '../store'
 import merge from 'lodash/merge' // 合并对象工具
 
 const http = axios.create({
@@ -26,7 +26,7 @@ http.adornUrl = (actionName) => {
  */
 http.interceptors.request.use(config => {
   // 处理请求之前的配置
-  config.headers['token'] = Vue.cookie.get('token') // // 请求头带上token
+  config.headers['token'] = Vue.$cookies.get('token') // // 请求头带上token
   return config
 }, error => {
   // 请求失败的处理
@@ -38,8 +38,11 @@ http.interceptors.request.use(config => {
  */
 http.interceptors.response.use(response => {
   if (response.data && response.data.code === 1002) {
-    Vue.cookie.delete('token')// 401 token失效
-    router.push({ name: 'Login' })
+    Vue.$cookies.remove('token')// 401 token失效
+    store.state.isLogin = false
+    if (Vue.$route.path !== '/login') {
+      Vue.$router.replace('/login')
+    }
   }
   return response
 }, error => {
