@@ -2,7 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import qs from 'qs' // 字符串处理
 import store from '../store'
-import merge from 'lodash/merge' // 合并对象工具
+import router from '@/router'
 
 const http = axios.create({
   timeout: 1000 * 30,
@@ -37,11 +37,11 @@ http.interceptors.request.use(config => {
  * 响应拦截
  */
 http.interceptors.response.use(response => {
-  if (response.data && response.data.code === 1002) {
-    Vue.$cookies.remove('token')// 401 token失效
+  if (response.data && (response.data.code === 1002 || response.data.code === 1001)) {
+    Vue.$cookies.remove('token')// 1002 token失效
     store.state.isLogin = false
-    if (Vue.$route.path !== '/login') {
-      Vue.$router.replace('/login')
+    if (router.currentRoute.path !== '/login') {
+      router.replace('/login')
     }
   }
   return response
@@ -52,27 +52,30 @@ http.interceptors.response.use(response => {
 /**
  * get 请求参数处理
  * @param params
- * @param openDefaultParams
  * @returns {*}
  */
-http.adornParams = (params = {}, openDefaultParams = false) => {
-  var defaluts = {
-    't': new Date().getTime()
-  }
-  return openDefaultParams ? merge(defaluts, params) : params
+http.adornParams = (params = {}) => {
+  return params
 }
+
 /**
  * post请求参数处理
  * @param data
- * @param openDefaultdata
  * @param contentType
  * @returns {string}
  */
-http.adornData = (data = {}, openDefaultdata = false, contentType = 'json') => {
-  var defaults = {
-    't': new Date().getTime()
-  }
-  data = openDefaultdata ? merge(defaults, data) : data
+http.adornData = (data = {}, contentType = 'json') => {
+  return contentType === 'json' ? JSON.stringify(data) : qs.stringify(data)
+}
+
+/**
+ * post 请求参数处理
+ * 用于 delete 方法
+ * @param data
+ * @param contentType
+ * @returns {string}
+ */
+http.adornData = (data = [], contentType = 'json') => {
   return contentType === 'json' ? JSON.stringify(data) : qs.stringify(data)
 }
 

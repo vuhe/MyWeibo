@@ -15,10 +15,4 @@ import java.util.List;
  */
 @Mapper
 public interface WeiboMapper extends BaseMapper<Weibo> {
-    /**
-     * 获取全部微博信息
-     *
-     * @return 微博列表
-     */
-    List<Weibo> getAllWeibo();
 }

@@ -34,6 +34,18 @@ public class WeiboController {
     }
 
     /**
+     * 按 id 获取微博
+     * 权限：ADMIN
+     *
+     * @param id id
+     * @return 单条微博
+     */
+    @GetMapping("/weibo/{id}")
+    public Result getWeiboById(@PathVariable Integer id) {
+        return Result.ok().put("weibo", weiboService.getWeiboById(id));
+    }
+
+    /**
      * 新增微博
      * 权限：ADMIN
      *

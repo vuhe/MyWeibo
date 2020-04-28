@@ -10,6 +10,16 @@ export function socialDateFormat (date) {
   let time = parseInt((timeNow.getTime() - date) / 1000)
   // 存储转换值
   let s
+  // 时分转换
+  let hours = nDate.getHours().toString()
+  let minutes = nDate.getMinutes().toString()
+  if (nDate.getHours() < 10) {
+    hours = '0' + hours
+  }
+  if (nDate.getMinutes() < 10) {
+    minutes = '0' + minutes
+  }
+  // 逻辑判断
   if (time < 60 * 10) { // 十分钟内
     return '刚刚'
   } else if ((time < 60 * 60) && (time >= 60 * 10)) {
@@ -22,16 +32,14 @@ export function socialDateFormat (date) {
     return s + '小时前'
   } else if (timeNow.getDate() - nDate.getDate() === 1) {
     // 相差一天
-    s = Math.floor(time / 60 / 60 / 24)
-    return '昨天 ' + nDate.getHours() + ':' + nDate.getMinutes()
+    return '昨天 ' + hours + ':' + minutes
   } else if (timeNow.getDate() - nDate.getDate() === 2) {
     // 相差两天
-    s = Math.floor(time / 60 / 60 / 24)
-    return '前天 ' + nDate.getHours() + ':' + nDate.getMinutes()
+    return '前天 ' + hours + ':' + minutes
   } else {
     // 超过3天
     date = new Date(parseInt(date))
     return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() +
-      ' ' + nDate.getHours() + ':' + nDate.getMinutes()
+      ' ' + hours + ':' + minutes
   }
 }

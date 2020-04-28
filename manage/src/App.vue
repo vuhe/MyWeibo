@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header></Header>
-    <div class="main-page">
+    <div class="main-page" id="main">
       <router-view/>
     </div>
     <Footer></Footer>
@@ -19,7 +19,14 @@ export default {
     Footer
   },
   created () {
-    this.$store.state.isLogin = this.$store.getters.isLogin
+    this.$http({
+      url: this.$http.adornUrl('/token'),
+      method: 'get'
+    }).then(({data}) => {
+      if (data && data.code === 200) {
+        this.$store.state.isLogin = this.$store.getters.isLogin
+      }
+    })
   }
 }
 </script>

@@ -7,11 +7,4 @@
         <result column="content" property="content"/>
         <result column="time" property="time"/>
     </resultMap>
-
-    <select id="getAllWeibo" resultMap="Base">
-        SELECT `id`, `content`, `time`
-        FROM `weibo`
-        ORDER BY `time` DESC
-    </select>
-
 </mapper>

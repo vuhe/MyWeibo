@@ -21,6 +21,14 @@ public interface WeiboService extends IService<Weibo> {
     IPage<Weibo> getWeiboByPage(Integer page);
 
     /**
+     * 按 id 获取微博
+     *
+     * @param id id
+     * @return 单条微博
+     */
+    Weibo getWeiboById(Integer id);
+
+    /**
      * 新增微博
      *
      * @param weibo 微博内容

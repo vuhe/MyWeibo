@@ -2,6 +2,7 @@ package site.zhuhe.weibo.portal.security.controller;
 
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,6 +44,11 @@ public class SecurityController {
     @PostMapping("/logout")
     public Result logout() {
         tokenService.logout();
+        return Result.ok();
+    }
+
+    @GetMapping("/token")
+    public Result checkToken() {
         return Result.ok();
     }
 

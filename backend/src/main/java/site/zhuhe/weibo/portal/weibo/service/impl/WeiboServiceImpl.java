@@ -1,5 +1,6 @@
 package site.zhuhe.weibo.portal.weibo.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -29,7 +30,19 @@ public class WeiboServiceImpl extends ServiceImpl<WeiboMapper, Weibo> implements
     @Override
     public IPage<Weibo> getWeiboByPage(Integer pageNum) {
         Page<Weibo> page = new Page<>(pageNum, 10);
-        return baseMapper.selectPage(page, null);
+        QueryWrapper<Weibo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("time");
+        return baseMapper.selectPage(page, queryWrapper);
+    }
+
+    /**
+     * 按 id 获取微博
+     *
+     * @param id id
+     * @return 单条微博
+     */
+    public Weibo getWeiboById(Integer id) {
+        return baseMapper.selectById(id);
     }
 
     /**
