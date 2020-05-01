@@ -14,7 +14,7 @@ import java.util.Date;
  * @date: 2020/4/20 18:22
  */
 @Data
-@ApiModel(value = "Weibo对象", description = "微博信息")
+@ApiModel(value = "微博对象", description = "微博信息")
 public class Weibo extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 

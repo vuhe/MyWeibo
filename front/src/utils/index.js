@@ -11,8 +11,16 @@ export function socialDateFormat (date) {
   // 存储转换值
   let s
   // 时分转换
+  let month = (nDate.getMonth() + 1).toString()
+  let day = nDate.getDate().toString()
   let hours = nDate.getHours().toString()
   let minutes = nDate.getMinutes().toString()
+  if (nDate.getMonth() + 1 < 10) {
+    month = '0' + month
+  }
+  if (nDate.getDate() < 10) {
+    day = '0' + day
+  }
   if (nDate.getHours() < 10) {
     hours = '0' + hours
   }
@@ -26,7 +34,7 @@ export function socialDateFormat (date) {
     // 超过十分钟少于1小时
     s = Math.floor(time / 60)
     return s + '分钟前'
-  } else if ((timeNow.getDate() - nDate.getDate() < 1) && (time >= 60 * 60)) {
+  } else if ((timeNow.getDate() - nDate.getDate() === 0) && (time >= 60 * 60)) {
     // 超过1小时且在同一天
     s = Math.floor(time / 60 / 60)
     return s + '小时前'
@@ -38,8 +46,7 @@ export function socialDateFormat (date) {
     return '前天 ' + hours + ':' + minutes
   } else {
     // 超过3天
-    date = new Date(parseInt(date))
-    return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() +
+    return nDate.getFullYear() + '-' + month + '-' + day +
       ' ' + hours + ':' + minutes
   }
 }

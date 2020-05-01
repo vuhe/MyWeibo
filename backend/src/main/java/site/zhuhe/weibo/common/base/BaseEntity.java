@@ -2,6 +2,7 @@ package site.zhuhe.weibo.common.base;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -14,6 +15,7 @@ import org.springframework.data.annotation.Id;
  * @date: 2020/4/20 18:13
  */
 @Data
+@ApiModel(value = "通用实体类")
 public class BaseEntity {
     /**
      * 主键

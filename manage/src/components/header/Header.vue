@@ -10,6 +10,7 @@
       active-text-color="#ffd04b">
       <el-menu-item index="/login">用户页</el-menu-item>
       <el-menu-item index="/" :disabled="!this.$store.state.isLogin">主要管理页</el-menu-item>
+      <el-menu-item index="/api" :disabled="!this.$store.state.isLogin">接口调试页</el-menu-item>
     </el-menu>
   </div>
 </template>
