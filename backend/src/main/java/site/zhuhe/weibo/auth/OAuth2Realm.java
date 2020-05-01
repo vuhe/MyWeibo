@@ -7,9 +7,9 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import site.zhuhe.weibo.common.util.TokenUtils;
 import site.zhuhe.weibo.entity.user.User;
 import site.zhuhe.weibo.mapper.user.UserMapper;
+import site.zhuhe.weibo.portal.security.service.intf.TokenService;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,6 +27,9 @@ public class OAuth2Realm extends AuthorizingRealm {
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    TokenService tokenService;
 
     @Override
     public boolean supports(AuthenticationToken token) {
@@ -55,15 +58,18 @@ public class OAuth2Realm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String accessToken = (String) token.getPrincipal();
 
-        //根据accessToken，查询用户信息
-        OAuth2Token oAuth2Token = TokenUtils.getTokenUtils().getToken();
-        //token失效
-        if (oAuth2Token == null || !accessToken.equals(oAuth2Token.getPrincipal().toString())) {
+        //根据accessToken，查询客户端信息
+        String client = tokenService.queryByToken(accessToken);
+        // token失效
+        if (client == null) {
             throw new IncorrectCredentialsException("token失效，请重新登录");
         }
 
         //查询用户信息
         User user = userMapper.getUser();
+
+        // 续期
+        tokenService.refreshToken(client, accessToken);
 
         return new SimpleAuthenticationInfo(user, accessToken, getName());
     }

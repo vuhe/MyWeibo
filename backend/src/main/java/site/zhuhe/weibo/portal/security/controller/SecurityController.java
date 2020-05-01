@@ -2,10 +2,7 @@ package site.zhuhe.weibo.portal.security.controller;
 
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import site.zhuhe.weibo.common.Result;
 import site.zhuhe.weibo.common.exception.enums.ErrorEnum;
 import site.zhuhe.weibo.entity.user.User;
@@ -28,7 +25,7 @@ public class SecurityController {
     UserMapper userMapper;
 
     @PostMapping("/login")
-    public Result login(@RequestBody User user) {
+    public Result login(@RequestBody User user, @RequestParam(value="client", defaultValue="null") String client) {
         // 用户信息
         User userInfo = userMapper.getUser();
         if (user == null || !userInfo.getPwd().equals(
@@ -38,12 +35,12 @@ public class SecurityController {
         }
 
         //生成token，并保存
-        return tokenService.createToken();
+        return tokenService.createToken(client);
     }
 
     @PostMapping("/logout")
-    public Result logout() {
-        tokenService.logout();
+    public Result logout(@RequestParam(value="client", defaultValue="null") String client) {
+        tokenService.logout(client);
         return Result.ok();
     }
 

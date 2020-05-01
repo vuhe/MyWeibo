@@ -25,6 +25,9 @@ export default {
       this.$http({
         url: this.$http.adornUrl('/login'),
         method: 'post',
+        params: {
+          'client': 'web-service'
+        },
         data: this.$http.adornData({
           'id': 1,
           'name': 'zhuhe',
@@ -43,7 +46,10 @@ export default {
     logout () {
       this.$http({
         url: this.$http.adornUrl('/logout'),
-        method: 'post'
+        method: 'post',
+        params: {
+          'client': 'web-service'
+        }
       }).then(({data}) => {
         if (data && data.code === 200) {
           this.$cookies.remove('token')
