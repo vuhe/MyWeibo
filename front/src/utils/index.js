@@ -50,3 +50,29 @@ export function socialDateFormat (date) {
       ' ' + hours + ':' + minutes
   }
 }
+
+/**
+ * 对内容的链接及换行进行处理
+ *
+ * @param content
+ * @returns {*}
+ */
+export function contentFormat (content) {
+  // 替换换行、空格
+  content = content.replace(/\n/g, '<br/>').replace(/\s/g, ' ')
+
+  // 替换链接
+  // eslint-disable-next-line
+  let re = /\[[\s\S]*?\]\((http|ftp|https):\/\/[\w-]+(.[\w-]+)+([\w-.,@?^=%&:/~+#]*[\w-\@?^=%&/~+#])?\)/g
+  content = content.replace(re, function (website) {
+    let name = website.replace(/\([\s\S]*?\)/g, '').replace(/\[[\s\S]*?\]/g, function (name) {
+      return name.substring(1, name.length - 1)
+    })
+    let path = website.replace(/\[[\s\S]*?\]/g, '').replace(/\([\s\S]*?\)/g, function (path) {
+      return path.substring(1, path.length - 1)
+    })
+    return "<a href='" + path + "' target='_blank'>" + name + '</a>'
+  })
+
+  return content
+}

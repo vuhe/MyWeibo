@@ -1,10 +1,11 @@
 <template>
   <v-app-bar
     elevation="10"
-    color="teal lighten-3"
     app
+    dense
+    clipped-left
   >
-    <v-toolbar-title class="ml-12 display-1">个人微博</v-toolbar-title>
+    <v-toolbar-title class="ml-12 headline">个人微博</v-toolbar-title>
   </v-app-bar>
 </template>
 

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import MainContent from '../components/content/MainContent'
+import InfoContent from '../components/content/InfoContent'
 
 Vue.use(Router)
 
@@ -10,10 +11,12 @@ export default new Router({
     {
       path: '/',
       name: 'MainContent',
-      component: MainContent,
-      meta: {
-        title: 'Music Feeder'
-      }
+      component: MainContent
+    },
+    {
+      path: '/info',
+      name: 'InfoContent',
+      component: InfoContent
     }
   ]
 })

@@ -12,7 +12,7 @@
         </div>
         <el-input
           type="textarea"
-          :autosize="{ minRows: 2, maxRows: 4}"
+          :autosize="{ minRows: 10, maxRows: 20}"
           placeholder="说点什么吧"
           v-model="content">
         </el-input>

@@ -17,7 +17,11 @@ new Vue({
   router,
   // store, // 使用store
   // 初始化Vuetify
-  vuetify: new Vuetify(),
+  vuetify: new Vuetify({
+    theme: {
+      dark: true
+    }
+  }),
   // 声明App组件，这样<App/>元素就可以生效
   components: {
     App

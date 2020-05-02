@@ -1,22 +1,22 @@
 <template>
   <v-app id="app">
+    <Navigation></Navigation>
     <Header></Header>
     <v-content>
       <router-view></router-view>
     </v-content>
-    <Footer></Footer>
   </v-app>
 </template>
 
 <script>
 import Header from '@/components/header/Header'
-import Footer from '@/components/footer/Footer'
+import Navigation from '@/components/drawer/Navigation'
 
 export default {
   name: 'App',
   components: {
     Header,
-    Footer
+    Navigation
   }
 }
 </script>
