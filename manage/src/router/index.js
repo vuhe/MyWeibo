@@ -8,6 +8,7 @@ import Api from '@/components/common/Api'
 Vue.use(Router)
 
 const router = new Router({
+  base: '/manage/',
   mode: 'history',
   routes: [
     {

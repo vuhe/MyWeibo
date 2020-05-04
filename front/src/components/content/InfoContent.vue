@@ -42,7 +42,7 @@
                 align="center"
                 justify="end"
               >
-                <span class="subheading">截止目前共计 30 条</span>
+                <span class="subheading">截止目前共计 {{total}} 条</span>
               </v-row>
             </v-list-item>
           </v-card-actions>
@@ -54,7 +54,27 @@
 
 <script>
 export default {
-  name: 'InfoContent'
+  name: 'InfoContent',
+  data () {
+    return {
+      total: 0
+    }
+  },
+  created () {
+    this.getData()
+  },
+  methods: {
+    getData () {
+      this.$http({
+        url: this.$http.adornUrl('/get/1'),
+        method: 'get'
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.total = data.page.total
+        }
+      })
+    }
+  }
 }
 </script>
 

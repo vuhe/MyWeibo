@@ -18,7 +18,7 @@ const http = axios.create({
  */
 http.adornUrl = (actionName) => {
   // 非生产环境 && 开启代理, 接口前缀统一使用[/proxyApi/]前缀做代理拦截!
-  return 'http://localhost:8080/weibo' + actionName
+  return 'https://api.zhuhe.site/weibo' + actionName
 }
 
 /**
