@@ -1,21 +1,19 @@
-# front
+# 前台简介
 
-> My personal Weibo.
+## 概况
+实现了浏览器的访问，对于手机等小屏设备的兼容性可能不是那么好，毕竟我是打算直接出一个客户端的。
 
-## Build Setup
+## 部署
+> 首先要确保项目`utils`中的`httpRequest.js`文件中`url`的正确
 
-``` bash
-# install dependencies
-npm install
+完成下列环境部署
+- Node.js 8.0+
+- WebStorm编辑器
 
-# serve with hot reload at localhost:8080
-npm run dev
+### 开发环境
+1. 导入项目，运行 `npm install`（如果失败，清空包后试试`cnpm install`）
+2. 启动项目：`npm run dev` 或 `npm start`
 
-# build for production with minification
-npm run build
+### 打包部署
 
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+运行`npm build`得到`dist`文件夹即可
