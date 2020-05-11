@@ -22,6 +22,9 @@ export default {
 </script>
 
 <style>
+  body {
+    background-color: #121212;
+  }
   a {
     text-decoration: none;
   }
