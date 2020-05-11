@@ -23,13 +23,13 @@ public enum ErrorEnum {
 
     //用户权限错误
     INVALID_TOKEN(1001, "token不合法"),
-    INVALID_LOGIN(1002, "登录信息不合法，请重新登录"),
+    INVALID_LOGIN(1002, "登录信息不合法"),
     INVALID_CLIENT(1003, "非法客户端"),
 
     //登录模块错误
     LOGIN_FAIL(10001, "登录失败"),
     CAPTCHA_WRONG(10002, "验证码错误"),
-    USERNAME_OR_PASSWORD_WRONG(10003, "用户名或密码错误"),
+    PASSWORD_WRONG(10003, "密码错误"),
 
     //七牛OSS错误
     OSS_CONFIG_ERROR(10050, "七牛配置信息错误"),
