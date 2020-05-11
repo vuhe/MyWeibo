@@ -37,12 +37,13 @@ http.interceptors.request.use(config => {
  * 响应拦截
  */
 http.interceptors.response.use(response => {
-  if (response.data && (response.data.code === 1002 || response.data.code === 1001)) {
-    Vue.$cookies.remove('token')// 1002 token失效
+  if (response.data && (response.data.code === 1001)) {
+    Vue.$cookies.remove('token')// 1001 token失效
     store.state.isLogin = false
     if (router.currentRoute.path !== '/login') {
       router.replace('/login')
     }
+    Vue.$message.error(response.data.msg)
   }
   return response
 }, error => {

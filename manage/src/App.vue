@@ -19,14 +19,16 @@ export default {
     Footer
   },
   created () {
-    this.$http({
-      url: this.$http.adornUrl('/token'),
-      method: 'get'
-    }).then(({data}) => {
-      if (data && data.code === 200) {
-        this.$store.state.isLogin = this.$store.getters.isLogin
-      }
-    })
+    if (this.$store.state.isLogin) {
+      this.$http({
+        url: this.$http.adornUrl('/token'),
+        method: 'get'
+      }).then(({data}) => {
+        if (data && data.code === 200) {
+          this.$store.state.isLogin = this.$store.getters.isLogin
+        }
+      })
+    }
   }
 }
 </script>
