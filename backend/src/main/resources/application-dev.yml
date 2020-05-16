@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/weibo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&&useSSL=false&serverTimezone=GMT
+  redis:
+    host: localhost
+    password: 123@456
