@@ -1,6 +1,7 @@
 package site.zhuhe.weibo.common.exception;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import site.zhuhe.weibo.common.exception.enums.ErrorEnum;
 
 /**
@@ -10,6 +11,7 @@ import site.zhuhe.weibo.common.exception.enums.ErrorEnum;
  * @description: 自定义异常
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class MyException extends RuntimeException {
     private String msg;
     private int code = 500;

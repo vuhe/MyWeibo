@@ -37,7 +37,7 @@ public class SecurityController {
             @ApiResponse(code = 10003, message = "用户名或密码错误")
     })
     @PostMapping("/login")
-    public Result login(@ApiParam(name = "user", value = "用户信息", required = true)
+    public Result<?> login(@ApiParam(name = "user", value = "用户信息", required = true)
                         @RequestBody User user,
                         @ApiParam(name = "client", value = "客户端信息", required = true)
                         @RequestParam(value = "client", defaultValue = "null") String client) {
@@ -45,11 +45,11 @@ public class SecurityController {
         User userInfo = userMapper.getUser();
         if (user == null) {
             // 登录信息为空
-            return Result.error(ErrorEnum.INVALID_LOGIN);
+            return Result.ofErrorEnum(ErrorEnum.INVALID_LOGIN);
         } else if (!userInfo.getPwd().equals(
                 new Sha256Hash(user.getPwd(), user.getName()).toHex())){
             // 密码错误
-            return Result.error(ErrorEnum.PASSWORD_WRONG);
+            return Result.ofErrorEnum(ErrorEnum.PASSWORD_WRONG);
         }
 
         //生成token，并保存
@@ -62,10 +62,10 @@ public class SecurityController {
             @ApiResponse(code = 500, message = "系统内部错误")
     })
     @PostMapping("/logout")
-    public Result logout(@ApiParam(name = "client", value = "客户端信息", required = true)
+    public Result<?> logout(@ApiParam(name = "client", value = "客户端信息", required = true)
                          @RequestParam(value = "client", defaultValue = "null") String client) {
         tokenService.logout(client);
-        return Result.ok();
+        return Result.ofSuccess();
     }
 
     @ApiOperation(value = "检查token", notes = "此接口为后台接口")
@@ -74,8 +74,8 @@ public class SecurityController {
             @ApiResponse(code = 500, message = "系统内部错误")
     })
     @GetMapping("/token")
-    public Result checkToken() {
-        return Result.ok();
+    public Result<?> checkToken() {
+        return Result.ofSuccess();
     }
 
 }

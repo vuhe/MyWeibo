@@ -24,28 +24,25 @@ public class MyExceptionHandler {
      * @return 处理结果
      */
     @ExceptionHandler(MyException.class)
-    public Result handleMyException(MyException e) {
-        Result result = new Result();
-        result.put("code", e.getCode());
-        result.put("msg", e.getMsg());
-        return result;
+    public Result<?> handleMyException(MyException e) {
+        return Result.ofException(e);
     }
 
     @ExceptionHandler(NoHandlerFoundException.class)
-    public Result handlerNoFoundException(Exception e) {
+    public Result<?> handlerNoFoundException(Exception e) {
         log.error(e.getMessage(), e);
-        return Result.exception(ErrorEnum.PATH_NOT_FOUND);
+        return Result.ofErrorEnum(ErrorEnum.PATH_NOT_FOUND);
     }
 
     @ExceptionHandler(DuplicateKeyException.class)
-    public Result handleDuplicateKeyException(DuplicateKeyException e) {
+    public Result<?> handleDuplicateKeyException(DuplicateKeyException e) {
         log.error(e.getMessage(), e);
-        return Result.exception(ErrorEnum.DUPLICATE_KEY);
+        return Result.ofErrorEnum(ErrorEnum.DUPLICATE_KEY);
     }
 
     @ExceptionHandler(Exception.class)
-    public Result handleException(Exception e) {
+    public Result<?> handleException(Exception e) {
         log.error(e.getMessage(), e);
-        return Result.exception();
+        return Result.ofErrorEnum(ErrorEnum.UNKNOWN);
     }
 }

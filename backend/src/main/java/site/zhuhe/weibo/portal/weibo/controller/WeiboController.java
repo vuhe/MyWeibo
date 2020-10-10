@@ -35,10 +35,10 @@ public class WeiboController {
             @ApiResponse(code = 500, message = "系统内部错误")
     })
     @GetMapping("/get/{page}")
-    public Result getWeiboByPage(@ApiParam(name = "page", value = "页码", required = true)
+    public Result<IPage<Weibo>> getWeiboByPage(@ApiParam(name = "page", value = "页码", required = true)
                                  @PathVariable Integer page) {
         IPage<Weibo> weiboList = weiboService.getWeiboByPage(page);
-        return Result.ok().put("page", weiboList);
+        return Result.ofSuccessWithDate("page", weiboList);
     }
 
     /**
@@ -54,9 +54,9 @@ public class WeiboController {
             @ApiResponse(code = 500, message = "系统内部错误")
     })
     @GetMapping("/weibo/{id}")
-    public Result getWeiboById(@ApiParam(name = "id", value = "id", required = true)
+    public Result<Weibo> getWeiboById(@ApiParam(name = "id", value = "id", required = true)
                                @PathVariable Integer id) {
-        return Result.ok().put("weibo", weiboService.getWeiboById(id));
+        return Result.ofSuccessWithDate("weibo", weiboService.getWeiboById(id));
     }
 
     /**
@@ -72,10 +72,10 @@ public class WeiboController {
             @ApiResponse(code = 500, message = "系统内部错误")
     })
     @PostMapping("/add")
-    public Result addWeibo(@ApiParam(name = "weibo", value = "新增微博内容", required = true)
+    public Result<?> addWeibo(@ApiParam(name = "weibo", value = "新增微博内容", required = true)
                            @RequestBody Weibo weibo) {
         weiboService.addWeibo(weibo);
-        return Result.ok();
+        return Result.ofSuccess();
     }
 
     /**
@@ -91,10 +91,10 @@ public class WeiboController {
             @ApiResponse(code = 500, message = "系统内部错误")
     })
     @PutMapping("/modify")
-    public Result updateWeibo(@ApiParam(name = "weibo", value = "修改微博内容", required = true)
+    public Result<?> updateWeibo(@ApiParam(name = "weibo", value = "修改微博内容", required = true)
                               @RequestBody Weibo weibo) {
         weiboService.updateWeibo(weibo);
-        return Result.ok();
+        return Result.ofSuccess();
     }
 
     /**
@@ -110,9 +110,9 @@ public class WeiboController {
             @ApiResponse(code = 500, message = "系统内部错误")
     })
     @DeleteMapping("/delete")
-    public Result delete(@ApiParam(name = "ids", value = "id数组", required = true)
+    public Result<?> delete(@ApiParam(name = "ids", value = "id数组", required = true)
                          @RequestBody Integer[] ids) {
         weiboService.deleteWeibo(ids);
-        return Result.ok();
+        return Result.ofSuccess();
     }
 }

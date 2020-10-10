@@ -1,6 +1,7 @@
 package site.zhuhe.weibo.mapper.user;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 import site.zhuhe.weibo.entity.user.User;
 
 /**
@@ -11,6 +12,7 @@ import site.zhuhe.weibo.entity.user.User;
  * @date: 2020/4/20 18:42
  */
 @Mapper
+@Repository
 public interface UserMapper {
     /**
      * 查找用户名

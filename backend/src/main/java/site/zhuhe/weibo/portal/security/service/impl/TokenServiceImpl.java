@@ -28,7 +28,7 @@ public class TokenServiceImpl implements TokenService {
     private RedisUtils redisUtils;
 
     // 客户端集合
-    private final static Set<String> clientSet = new HashSet<String>() {{
+    private final static Set<String> clientSet = new HashSet<>() {{
         add("web-service");
     }};
 
@@ -39,9 +39,9 @@ public class TokenServiceImpl implements TokenService {
      * @return 带token的结果
      */
     @Override
-    public Result createToken(String clientTag) {
+    public Result<?> createToken(String clientTag) {
         if (clientTag == null || !clientSet.contains(clientTag)) {
-            return Result.error(ErrorEnum.INVALID_CLIENT);
+            return Result.ofErrorEnum(ErrorEnum.INVALID_CLIENT);
         }
         // 生成一个token
         String token = TokenGenerator.generateValue();
@@ -60,7 +60,7 @@ public class TokenServiceImpl implements TokenService {
         redisUtils.set(tokenKey, clientTag, EXPIRE);
         redisUtils.set(clientKey, token, EXPIRE);
 
-        return Result.ok(201, "登陆成功").put("token", token);
+        return Result.of(201, "登陆成功", "token", token);
     }
 
     /**
