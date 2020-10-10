@@ -1,6 +1,6 @@
 spring:
   datasource:
     druid:
-      url: jdbc:mysql://mysql:3306/weibo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&&useSSL=false&serverTimezone=GMT
+      url: jdbc:mysql://rm-bp1g4nw29039unorb125010.mysql.rds.aliyuncs.com:3306/weibo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&&useSSL=false&serverTimezone=GMT
   redis:
     host: redis
