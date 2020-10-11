@@ -7,10 +7,10 @@
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="title">
-          Vuhe's Weibo
+          Mini Weibo
         </v-list-item-title>
         <v-list-item-subtitle>
-          这是一个属于社恐的个人微博
+          这是一个属于我们的个人微博
         </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>

@@ -19,11 +19,11 @@
           </v-card-title>
 
           <v-card-text class="headline font-weight-bold">
-            2020年，可以在微博、朋友圈等大把的社交媒体上发表内容。<br>
-            我一定是在逃避什么，才搭了这玩意。<br>
-            所以这里没有点赞评论、 阅读量以及随之而来的社交压力。<br>
-            我也不关心你多久会点开与忘记这个站点<br>
-            因为它的全部意义就在于迎合我自己。
+            现在，虽然可以在微博、朋友圈等大把的社交媒体上发表内容。<br>
+            但是我们还是希望可以自己有一个没有广告的微博。<br>
+            所以这里没有和其它平台一样的广告压力。<br>
+            我们希望大家可以在这里找到一个合理的发布渠道<br>
+            希望大家能喜欢这个平台。
           </v-card-text>
           <v-card-actions>
             <v-list-item class="grow">
@@ -43,6 +43,15 @@
                 justify="end"
               >
                 <span class="subheading">截止目前共计 {{total}} 条</span>
+                <v-btn
+                  class="ml-3"
+                  outlined
+                  rounded
+                  href="https://weibo.zhuhe.site/manage"
+                  target="_blank"
+                >
+                  管理微博
+                </v-btn>
               </v-row>
             </v-list-item>
           </v-card-actions>

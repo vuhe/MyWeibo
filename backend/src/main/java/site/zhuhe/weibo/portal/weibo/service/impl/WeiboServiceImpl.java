@@ -104,6 +104,18 @@ public class WeiboServiceImpl extends ServiceImpl<WeiboMapper, WeiboDTO> impleme
     }
 
     /**
+     * 喜欢微博
+     *
+     * @param id 微博id
+     */
+    @Override
+    public void likeWeibo(Integer id) {
+        WeiboDTO weibo = baseMapper.selectById(id);
+        weibo.setLikeNum(weibo.getLikeNum() + 1);
+        baseMapper.updateById(weibo);
+    }
+
+    /**
      * 更新微博
      *
      * @param weibo 更新内容

@@ -118,6 +118,25 @@ public class WeiboController {
     }
 
     /**
+     * 喜欢微博
+     * 权限：ALL
+     *
+     * @param weiboId 微博Id
+     * @return 修改成功
+     */
+    @ApiOperation(value = "修改微博", notes = "此接口为后台接口，用于修改微博")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功"),
+            @ApiResponse(code = 500, message = "系统内部错误")
+    })
+    @PutMapping("/like")
+    public Result<?> likeWeibo(@ApiParam(name = "weibo", value = "修改微博内容", required = true)
+                               @RequestBody Integer weiboId) {
+        weiboService.likeWeibo(weiboId);
+        return Result.ofSuccess();
+    }
+
+    /**
      * 批量删除微博
      * 权限：ADMIN
      *

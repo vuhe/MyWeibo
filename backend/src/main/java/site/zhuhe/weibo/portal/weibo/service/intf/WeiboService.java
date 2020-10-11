@@ -46,6 +46,13 @@ public interface WeiboService extends IService<WeiboDTO> {
     void addWeibo(Weibo weibo);
 
     /**
+     * 喜欢微博
+     *
+     * @param id 微博id
+     */
+    void likeWeibo(Integer id);
+
+    /**
      * 更新微博
      *
      * @param weibo 更新内容
