@@ -5,6 +5,7 @@ import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 import site.zhuhe.weibo.common.Result;
 import site.zhuhe.weibo.entity.weibo.Weibo;
+import site.zhuhe.weibo.entity.weibo.WeiboVO;
 import site.zhuhe.weibo.portal.weibo.service.intf.WeiboService;
 
 import javax.annotation.Resource;
@@ -29,15 +30,34 @@ public class WeiboController {
      * @param page 页码
      * @return 微博页信息
      */
-    @ApiOperation(value = "按页获取微博", notes = "此接口为前后台公用")
+    @ApiOperation(value = "按页获取微博", notes = "此接口为前台使用")
     @ApiResponses({
             @ApiResponse(code = 200, message = "成功"),
             @ApiResponse(code = 500, message = "系统内部错误")
     })
     @GetMapping("/get/{page}")
-    public Result<IPage<Weibo>> getWeiboByPage(@ApiParam(name = "page", value = "页码", required = true)
-                                 @PathVariable Integer page) {
-        IPage<Weibo> weiboList = weiboService.getWeiboByPage(page);
+    public Result<IPage<WeiboVO>> getWeiboByPage(@ApiParam(name = "page", value = "页码", required = true)
+                                                 @PathVariable Integer page) {
+        IPage<WeiboVO> weiboList = weiboService.getWeiboByPage(page);
+        return Result.ofSuccessWithDate("page", weiboList);
+    }
+
+    /**
+     * 按用户页获取微博
+     * 权限：ADMIN
+     *
+     * @param page 页码
+     * @return 微博页信息
+     */
+    @ApiOperation(value = "按页获取微博", notes = "此接口为后台使用")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "成功"),
+            @ApiResponse(code = 500, message = "系统内部错误")
+    })
+    @GetMapping("/userPage/{page}")
+    public Result<IPage<Weibo>> getWeiboByUserPage(@ApiParam(name = "page", value = "页码", required = true)
+                                                   @PathVariable Integer page) {
+        IPage<Weibo> weiboList = weiboService.getWeiboByUserPage(page);
         return Result.ofSuccessWithDate("page", weiboList);
     }
 
@@ -55,7 +75,7 @@ public class WeiboController {
     })
     @GetMapping("/weibo/{id}")
     public Result<Weibo> getWeiboById(@ApiParam(name = "id", value = "id", required = true)
-                               @PathVariable Integer id) {
+                                      @PathVariable Integer id) {
         return Result.ofSuccessWithDate("weibo", weiboService.getWeiboById(id));
     }
 
@@ -73,7 +93,7 @@ public class WeiboController {
     })
     @PostMapping("/add")
     public Result<?> addWeibo(@ApiParam(name = "weibo", value = "新增微博内容", required = true)
-                           @RequestBody Weibo weibo) {
+                              @RequestBody Weibo weibo) {
         weiboService.addWeibo(weibo);
         return Result.ofSuccess();
     }
@@ -92,7 +112,7 @@ public class WeiboController {
     })
     @PutMapping("/modify")
     public Result<?> updateWeibo(@ApiParam(name = "weibo", value = "修改微博内容", required = true)
-                              @RequestBody Weibo weibo) {
+                                 @RequestBody Weibo weibo) {
         weiboService.updateWeibo(weibo);
         return Result.ofSuccess();
     }
@@ -111,7 +131,7 @@ public class WeiboController {
     })
     @DeleteMapping("/delete")
     public Result<?> delete(@ApiParam(name = "ids", value = "id数组", required = true)
-                         @RequestBody Integer[] ids) {
+                            @RequestBody Integer[] ids) {
         weiboService.deleteWeibo(ids);
         return Result.ofSuccess();
     }

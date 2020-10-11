@@ -14,8 +14,8 @@ import site.zhuhe.weibo.common.exception.enums.ErrorEnum;
 @Getter
 @JsonSerialize(using = ResultSerializer.class)
 public class Result<T> {
-    private int code;
-    private String msg;
+    private int code = 200;
+    private String msg = "success";
     private String objName = "";
     private T object = null;
 

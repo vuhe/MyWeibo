@@ -42,7 +42,7 @@ public class SecurityController {
                         @ApiParam(name = "client", value = "客户端信息", required = true)
                         @RequestParam(value = "client", defaultValue = "null") String client) {
         // 用户信息校验，单用户模式暂不检查用户名
-        User userInfo = userMapper.getUser();
+        User userInfo = userMapper.selectById(1);
         if (user == null) {
             // 登录信息为空
             return Result.ofErrorEnum(ErrorEnum.INVALID_LOGIN);

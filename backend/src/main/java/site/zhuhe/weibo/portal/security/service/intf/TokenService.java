@@ -16,7 +16,7 @@ public interface TokenService {
      * @param clientTag 客户端类型
      * @return 带token的结果
      */
-    Result createToken(String clientTag);
+    Result<?> createToken(String clientTag);
 
     /**
      * 通过 token 查询客户端类型

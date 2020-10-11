@@ -1,5 +1,6 @@
 package site.zhuhe.weibo.mapper.user;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 import site.zhuhe.weibo.entity.user.User;
@@ -13,19 +14,5 @@ import site.zhuhe.weibo.entity.user.User;
  */
 @Mapper
 @Repository
-public interface UserMapper {
-    /**
-     * 查找用户名
-     *
-     * @param username 用户名
-     * @return 用户类
-     */
-    User loadUserByUsername (String username);
-
-    /**
-     * 获取用户实例
-     *
-     * @return 用户
-     */
-    User getUser();
+public interface UserMapper extends BaseMapper<User> {
 }

@@ -1,5 +1,6 @@
 package site.zhuhe.weibo.entity.weibo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,8 +22,10 @@ public class Weibo extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "微博内容")
+    @TableField(value = "content")
     private String content;
 
     @ApiModelProperty(value = "发布时间")
+    @TableField(value = "timeStamp")
     private Date time;
 }

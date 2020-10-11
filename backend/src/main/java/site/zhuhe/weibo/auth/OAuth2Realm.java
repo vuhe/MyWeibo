@@ -42,7 +42,7 @@ public class OAuth2Realm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         //用户权限列表
-        Set<String> permsSet = new HashSet<String>() {{
+        Set<String> permsSet = new HashSet<>() {{
             add("ADMIN");
         }};
 
@@ -66,7 +66,7 @@ public class OAuth2Realm extends AuthorizingRealm {
         }
 
         //查询用户信息
-        User user = userMapper.getUser();
+        User user = userMapper.selectById(1);
 
         // 续期
         tokenService.refreshToken(client, accessToken);

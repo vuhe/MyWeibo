@@ -4,8 +4,15 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import site.zhuhe.weibo.entity.user.User;
 import site.zhuhe.weibo.entity.weibo.Weibo;
+import site.zhuhe.weibo.entity.weibo.WeiboDTO;
+import site.zhuhe.weibo.entity.weibo.WeiboVO;
+import site.zhuhe.weibo.mapper.user.UserMapper;
 import site.zhuhe.weibo.mapper.weibo.WeiboMapper;
 import site.zhuhe.weibo.portal.weibo.service.intf.WeiboService;
 
@@ -20,7 +27,10 @@ import java.util.Date;
  * @date: 2020/4/20 18:48
  */
 @Service("WeiboService")
-public class WeiboServiceImpl extends ServiceImpl<WeiboMapper, Weibo> implements WeiboService {
+public class WeiboServiceImpl extends ServiceImpl<WeiboMapper, WeiboDTO> implements WeiboService {
+    @Autowired
+    UserMapper userMapper;
+
     /**
      * 按页获取微博
      *
@@ -28,11 +38,39 @@ public class WeiboServiceImpl extends ServiceImpl<WeiboMapper, Weibo> implements
      * @return 微博列表
      */
     @Override
-    public IPage<Weibo> getWeiboByPage(Integer pageNum) {
-        Page<Weibo> page = new Page<>(pageNum, 10);
-        QueryWrapper<Weibo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByDesc("time");
-        return baseMapper.selectPage(page, queryWrapper);
+    public IPage<WeiboVO> getWeiboByPage(Integer pageNum) {
+        Page<WeiboDTO> page = new Page<>(pageNum, 10);
+        QueryWrapper<WeiboDTO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("timeStamp");
+        IPage<WeiboDTO> weiboIPage = baseMapper.selectPage(page, queryWrapper);
+        return weiboIPage.convert(weibo -> {
+            WeiboVO weiboVO = new WeiboVO();
+            BeanUtils.copyProperties(weibo, weiboVO);
+            String userName = userMapper.selectById(weibo.getUser()).getName();
+            weiboVO.setUserName(userName);
+            return weiboVO;
+        });
+    }
+
+    /**
+     * 按用户页获取微博
+     *
+     * @param pageNum 页码
+     * @return 微博列表
+     */
+    @Override
+    public IPage<Weibo> getWeiboByUserPage(Integer pageNum) {
+        Page<WeiboDTO> page = new Page<>(pageNum, 10);
+        QueryWrapper<WeiboDTO> queryWrapper = new QueryWrapper<>();
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        queryWrapper.eq("userId", user.getId())
+                .orderByDesc("timeStamp");
+        IPage<WeiboDTO> weiboIPage = baseMapper.selectPage(page, queryWrapper);
+        return weiboIPage.convert(weibo -> {
+            Weibo w = new Weibo();
+            BeanUtils.copyProperties(weibo, w);
+            return w;
+        });
     }
 
     /**
@@ -53,7 +91,12 @@ public class WeiboServiceImpl extends ServiceImpl<WeiboMapper, Weibo> implements
     @Override
     public void addWeibo(Weibo weibo) {
         weibo.setTime(new Date());
-        baseMapper.insert(weibo);
+        WeiboDTO w = new WeiboDTO();
+        BeanUtils.copyProperties(weibo, w);
+        w.setLikeNum(0);
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        w.setUser(user.getId());
+        baseMapper.insert(w);
     }
 
     /**
@@ -64,7 +107,9 @@ public class WeiboServiceImpl extends ServiceImpl<WeiboMapper, Weibo> implements
     @Override
     public void updateWeibo(Weibo weibo) {
         weibo.setTime(new Date());
-        baseMapper.updateById(weibo);
+        WeiboDTO w = new WeiboDTO();
+        BeanUtils.copyProperties(weibo, w);
+        baseMapper.updateById(w);
     }
 
     /**

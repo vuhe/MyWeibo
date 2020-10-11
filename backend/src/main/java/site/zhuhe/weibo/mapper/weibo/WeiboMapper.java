@@ -3,9 +3,7 @@ package site.zhuhe.weibo.mapper.weibo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-import site.zhuhe.weibo.entity.weibo.Weibo;
-
-import java.util.List;
+import site.zhuhe.weibo.entity.weibo.WeiboDTO;
 
 /**
  * 微博 Mapper 接口
@@ -16,5 +14,5 @@ import java.util.List;
  */
 @Mapper
 @Repository
-public interface WeiboMapper extends BaseMapper<Weibo> {
+public interface WeiboMapper extends BaseMapper<WeiboDTO> {
 }
