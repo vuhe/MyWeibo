@@ -28,13 +28,13 @@ public enum ErrorEnum {
 
     //登录模块错误
     LOGIN_FAIL(10001, "登录失败"),
-    CAPTCHA_WRONG(10002, "验证码错误"),
-    PASSWORD_WRONG(10003, "密码错误"),
+    USERNAME_WRONG(10002, "用户已存在"),
+    PASSWORD_WRONG(10003, "用户名或密码错误"),
 
     //七牛OSS错误
     OSS_CONFIG_ERROR(10050, "七牛配置信息错误"),
     OSS_UPLOAD_ERROR(10051, "OSSBookNote上传失败");
 
-    private int code;
-    private String msg;
+    private final int code;
+    private final String msg;
 }

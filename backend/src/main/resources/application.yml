@@ -91,6 +91,8 @@ mybatis-plus:
 
   #mybatis原生配置
   configuration:
+    #日志打印
+    # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     #驼峰下划线转换
     map-underscore-to-camel-case: true
     #不开启二级缓存

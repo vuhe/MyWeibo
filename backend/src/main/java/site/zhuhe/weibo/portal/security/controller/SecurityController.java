@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import site.zhuhe.weibo.common.Result;
 import site.zhuhe.weibo.common.exception.enums.ErrorEnum;
 import site.zhuhe.weibo.entity.user.User;
-import site.zhuhe.weibo.mapper.user.UserMapper;
 import site.zhuhe.weibo.portal.security.service.intf.TokenService;
+import site.zhuhe.weibo.portal.user.service.intf.UserService;
 
 /**
  * 权限控制器
@@ -24,7 +24,7 @@ public class SecurityController {
     TokenService tokenService;
 
     @Autowired
-    UserMapper userMapper;
+    UserService userService;
 
     @ApiOperation(value = "登录", notes = "此接口为后台接口")
     @ApiResponses({
@@ -38,22 +38,21 @@ public class SecurityController {
     })
     @PostMapping("/login")
     public Result<?> login(@ApiParam(name = "user", value = "用户信息", required = true)
-                        @RequestBody User user,
-                        @ApiParam(name = "client", value = "客户端信息", required = true)
-                        @RequestParam(value = "client", defaultValue = "null") String client) {
-        // 用户信息校验，单用户模式暂不检查用户名
-        User userInfo = userMapper.selectById(1);
+                        @RequestBody User user) {
         if (user == null) {
             // 登录信息为空
             return Result.ofErrorEnum(ErrorEnum.INVALID_LOGIN);
-        } else if (!userInfo.getPwd().equals(
-                new Sha256Hash(user.getPwd(), user.getName()).toHex())){
-            // 密码错误
-            return Result.ofErrorEnum(ErrorEnum.PASSWORD_WRONG);
+        } else {
+            User userInfo = userService.searchUserByName(user.getName());
+            if (userInfo == null || !userInfo.getPwd().equals(
+                    new Sha256Hash(user.getPwd(), user.getName()).toHex())) {
+                // 用户名或密码错误
+                return Result.ofErrorEnum(ErrorEnum.PASSWORD_WRONG);
+            }
         }
 
         //生成token，并保存
-        return tokenService.createToken(client);
+        return tokenService.createToken(user);
     }
 
     @ApiOperation(value = "登出", notes = "此接口为后台接口")
@@ -62,9 +61,8 @@ public class SecurityController {
             @ApiResponse(code = 500, message = "系统内部错误")
     })
     @PostMapping("/logout")
-    public Result<?> logout(@ApiParam(name = "client", value = "客户端信息", required = true)
-                         @RequestParam(value = "client", defaultValue = "null") String client) {
-        tokenService.logout(client);
+    public Result<?> logout() {
+        tokenService.logout();
         return Result.ofSuccess();
     }
 

@@ -14,6 +14,7 @@ import site.zhuhe.weibo.entity.weibo.WeiboDTO;
 import site.zhuhe.weibo.entity.weibo.WeiboVO;
 import site.zhuhe.weibo.mapper.user.UserMapper;
 import site.zhuhe.weibo.mapper.weibo.WeiboMapper;
+import site.zhuhe.weibo.portal.user.service.intf.UserService;
 import site.zhuhe.weibo.portal.weibo.service.intf.WeiboService;
 
 import java.util.Arrays;
@@ -30,6 +31,9 @@ import java.util.Date;
 public class WeiboServiceImpl extends ServiceImpl<WeiboMapper, WeiboDTO> implements WeiboService {
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    UserService userService;
 
     /**
      * 按页获取微博

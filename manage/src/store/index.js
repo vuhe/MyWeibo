@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    isLogin: false
+    isLogin: false,
+    username: '请登录'
   },
   getters: {
     isLogin () {

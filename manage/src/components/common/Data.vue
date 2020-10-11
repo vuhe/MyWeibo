@@ -100,7 +100,7 @@ export default {
     },
     getData (page) {
       this.$http({
-        url: this.$http.adornUrl('/get/' + page),
+        url: this.$http.adornUrl('/userPage/' + page),
         method: 'get'
       }).then(({data}) => {
         if (data && data.code === 200) {

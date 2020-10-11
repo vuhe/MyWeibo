@@ -56,6 +56,7 @@ public class ShiroConfig {
         Map<String, String> filterMap = new LinkedHashMap<>();
         // 两个url规则都可以匹配同一个url，只执行第一个
         filterMap.put("/login", "anon");
+        filterMap.put("/registered", "anon");
         filterMap.put("/get/**", "anon");
         // 去除 swagger 文档地址
         filterMap.put("/swagger-ui.html", "anon");
