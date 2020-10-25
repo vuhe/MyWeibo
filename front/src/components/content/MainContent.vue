@@ -1,41 +1,34 @@
 <template>
-  <v-container
-    class="fill-height"
-    fluid
-  >
-
+  <div>
     <v-row v-for="(item, n) in list"
            :key="n"
-           justify="center"
-           class="ml-5 mr-5 mt-5">
-      <v-col xl="8" lg="10" md="9" sm="9" xs="11">
+           justify="center">
+      <v-col class="pt-0 pb-0">
         <v-card
           class="mx-auto"
+          elevation="0"
         >
-          <v-card-title>
-            <v-icon
-              large
-              left
-            >
-              mdi-update
-            </v-icon>
-            <span class="title font-weight-light">{{ item.time }}</span>
+          <v-card-title
+            class="mb-3 blue lighten-1 white--text"
+          >
+            <span class="font-weight-light headline">@ {{ item.user }}</span>
           </v-card-title>
 
-          <v-card-text class="headline font-weight-bold" v-html="item.content">
+          <v-card-text class="headline font-weight-bold pl-6" v-html="item.content">
           </v-card-text>
           <v-card-actions>
             <v-list-item class="grow">
-              <v-list-item-avatar color="grey darken-3">
-                <v-img
-                  class="elevation-6"
-                  alt=""
-                  src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-                ></v-img>
-              </v-list-item-avatar>
-
               <v-list-item-content>
-                <v-list-item-title>{{ item.user }}</v-list-item-title>
+                <v-list-item-title class="headline">
+                  <v-icon
+                    large
+                    left
+                  >
+                    mdi-update
+                  </v-icon>
+                  <span class="title font-weight-light">{{ item.time }}</span>
+                </v-list-item-title>
+
               </v-list-item-content>
 
               <v-row
@@ -57,17 +50,17 @@
             </v-list-item>
           </v-card-actions>
         </v-card>
+<!--        <v-divider class="my-2"></v-divider>-->
       </v-col>
     </v-row>
 
     <v-row
-      class="ma-5"
-      max-width="650"
       align="center"
       justify="center"
     >
-      <v-col xl="8" lg="10" md="9" sm="9" xs="11">
+      <v-col class="pt-0 pb-0">
         <v-btn
+          color="blue lighten-1 white--text title font-weight-light"
           block
           x-large
           @click="loadMore"
@@ -77,7 +70,7 @@
         </v-btn>
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>

@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://api.zhuhe.site:3306/weibo?useSSL=false
+  redis:
+    host: localhost
+    # password: 123@456
