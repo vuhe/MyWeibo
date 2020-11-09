@@ -45,21 +45,25 @@ export default {
       })
     },
     registered () {
-      this.$http({
-        url: this.$http.adornUrl('/registered'),
-        method: 'post',
-        data: this.$http.adornData({
-          'id': 1,
-          'name': this.username,
-          'pwd': this.password
+      if (this.username && this.password) {
+        this.$http({
+          url: this.$http.adornUrl('/registered'),
+          method: 'post',
+          data: this.$http.adornData({
+            'id': 1,
+            'name': this.username,
+            'pwd': this.password
+          })
+        }).then(({data}) => {
+          if (data && data.code === 200) {
+            this.$message.info('注册成功')
+          } else {
+            this.$message.error(data.msg)
+          }
         })
-      }).then(({data}) => {
-        if (data && data.code === 200) {
-          this.$message.info('注册成功')
-        } else {
-          this.$message.error(data.msg)
-        }
-      })
+      } else {
+        this.$message.error('用户名或密码不能为空')
+      }
     },
     logout () {
       this.$http({
